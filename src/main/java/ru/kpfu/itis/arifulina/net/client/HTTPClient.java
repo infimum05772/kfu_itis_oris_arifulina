@@ -1,4 +1,4 @@
-package ru.kpfu.itis.arifulina;
+package ru.kpfu.itis.arifulina.net.client;
 
 import com.google.gson.*;
 
@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HTTPClient implements HttpClientInterface{
+public class HTTPClient implements HttpClientInterface {
     public static final String TEST_URL = "https://gorest.co.in/public/v2/users";
     public static final String ACCESS_TOKEN = "79837d71c309d7ea65bd1c53e820288cbad06a8427a95cf0056617f9d39fa225";
     public static void main(String[] args) {

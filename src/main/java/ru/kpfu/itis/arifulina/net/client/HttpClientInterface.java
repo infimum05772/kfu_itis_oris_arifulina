@@ -1,4 +1,4 @@
-package ru.kpfu.itis.arifulina;
+package ru.kpfu.itis.arifulina.net.client;
 
 import java.util.Map;
 
