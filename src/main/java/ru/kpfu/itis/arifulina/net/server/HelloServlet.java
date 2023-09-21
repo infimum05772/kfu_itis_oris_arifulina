@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.stream.Collectors;
 
-@WebServlet(name = "helloServlet", urlPatterns = "/")
+@WebServlet(name = "helloServlet", urlPatterns = "/hello")
 public class HelloServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,6 +31,7 @@ public class HelloServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doResponse(req);
     }
+
     private void doResponse(HttpServletRequest req) throws IOException {
         System.out.println("'''START'''");
         System.out.println();
@@ -45,7 +46,7 @@ public class HelloServlet extends HttpServlet {
 
         System.out.println("REQUEST HEADERS:");
         Iterator<String> iter = req.getHeaderNames().asIterator();
-        while (iter.hasNext()){
+        while (iter.hasNext()) {
             String headerName = iter.next();
             System.out.println(headerName + ": " + req.getHeader(headerName));
         }
