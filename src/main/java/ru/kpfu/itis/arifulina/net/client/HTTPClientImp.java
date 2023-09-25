@@ -94,17 +94,11 @@ public class HTTPClientImp implements HttpClient {
 
     private String getResponse(HttpURLConnection connection) throws IOException {
         StringBuilder content = new StringBuilder();
-        int responseCode = connection.getResponseCode();
-        content.append("Response code: ").append(responseCode).append("\n");
-        if (responseCode / 100 == 2) {
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                String input;
-                while ((input = reader.readLine()) != null) {
-                    content.append(input);
-                }
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            String input;
+            while ((input = reader.readLine()) != null) {
+                content.append(input);
             }
-        } else {
-            content.append("Request failed for url: ").append(connection.getURL());
         }
         return content.toString();
     }
