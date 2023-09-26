@@ -1,5 +1,8 @@
 package ru.kpfu.itis.arifulina.net.server;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -11,6 +14,7 @@ import java.io.IOException;
 public class WeatherLoginServlet extends HttpServlet {
     public static final String USERS_PATH = "C:\\Users\\rarif\\Desktop\\home\\javka\\httpclient\\src\\main\\java\\ru\\kpfu\\itis\\arifulina\\net\\res\\users_database.csv";
     public static final String COLUMN_DELIMITER = ",";
+    public static final Logger LOGGER = LoggerFactory.getLogger(WeatherLoginServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,9 +26,16 @@ public class WeatherLoginServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         if (isRegistered(login, password)) {
+            LOGGER.info("User with login {} logged in", login);
+
             HttpSession httpSession = req.getSession();
             httpSession.setAttribute("username", login);
             httpSession.setMaxInactiveInterval(24 * 60);
+
+            Cookie cookie = new Cookie("username", login);
+            cookie.setMaxAge(24 * 3600);
+            resp.addCookie(cookie);
+
             resp.sendRedirect("/city");
         } else {
             resp.sendRedirect("/wlogin");
