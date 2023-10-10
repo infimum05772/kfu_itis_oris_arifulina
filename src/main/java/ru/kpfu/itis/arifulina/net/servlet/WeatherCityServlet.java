@@ -46,47 +46,6 @@ public class WeatherCityServlet extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String city = req.getParameter("city");
-        req.setAttribute("city", city);
-
-        HTTPClientImp httpClient = new HTTPClientImp();
-        Map<String, String> params = new HashMap<>();
-        params.put("q", city);
-        params.put("appid", API_KEY);
-        params.put("units", "metric");
-
-        try {
-            long startReqTime = System.nanoTime();
-            String weatherStr = httpClient.get(URL, params, null);
-            long endReqTime = System.nanoTime();
-            WeatherDto weatherDto = parseJSON(weatherStr);
-            LOGGER.info("User with login {} sent request for city {} at time {}, duration: {} ns", user, city, LocalDateTime.now(), endReqTime - startReqTime);
-            req.setAttribute("weather", weatherDto);
-        } catch (HttpClientException e) {
-            req.setAttribute("err", "something went wrong :( please, check if your city is entered correctly");
-        }
-
-        req.getRequestDispatcher("weather_web\\weather.ftl").forward(req, resp);
-    }
-
-    public WeatherDto parseJSON(String weatherStr) {
-        String[] values = new String[3];
-        JsonObject weather = JsonParser.parseString(weatherStr).getAsJsonObject();
-        JsonObject main = weather.get("main").getAsJsonObject();
-        String temp = main.get("temp").getAsString();
-        String humidity = main.get("humidity").getAsString();
-        String precipitation = weather
-                .get("weather")
-                .getAsJsonArray()
-                .get(0)
-                .getAsJsonObject()
-                .get("description")
-                .getAsString();
-        return new WeatherDto(temp, humidity, precipitation);
-    }
-
     private String getCookieUsername(Cookie[] cookies) {
         if (cookies != null) {
             for (Cookie cookie : cookies) {

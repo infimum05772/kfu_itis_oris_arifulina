@@ -22,4 +22,9 @@ public class WeatherDto {
     public String getPrecipitation() {
         return precipitation;
     }
+
+    @Override
+    public String toString() {
+        return "Temperature: " + temperature + "C\nHumidity: " + humidity + "%\nPrecipitation: " + precipitation;
+    }
 }

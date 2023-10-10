@@ -2,6 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <title><@title></@title></title>
+    <@script></@script>
 </head>
 <body>
 <div id="header">

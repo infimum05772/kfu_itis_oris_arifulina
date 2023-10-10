@@ -1,6 +1,7 @@
 <html lang="en">
 <#include "base.ftl">
 <#macro title>login page</#macro>
+<#macro script></#macro>
 <#macro content>
     please, introduce yourself ;)
     <br>
