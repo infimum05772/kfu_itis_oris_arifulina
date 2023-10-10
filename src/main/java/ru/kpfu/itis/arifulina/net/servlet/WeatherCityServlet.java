@@ -1,4 +1,4 @@
-package ru.kpfu.itis.arifulina.net.server;
+package ru.kpfu.itis.arifulina.net.servlet;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -23,7 +23,7 @@ import java.util.Map;
 public class WeatherCityServlet extends HttpServlet {
     public static final String URL = "https://api.openweathermap.org/data/2.5/weather";
     public static final String API_KEY = "d9150eeddee7ab7195229541fcc66ad8";
-    public static final Logger LOGGER = LoggerFactory.getLogger(WeatherLoginServlet.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(WeatherCityServlet.class);
     private String user;
 
     @Override

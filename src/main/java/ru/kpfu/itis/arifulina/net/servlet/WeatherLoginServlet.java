@@ -1,4 +1,4 @@
-package ru.kpfu.itis.arifulina.net.server;
+package ru.kpfu.itis.arifulina.net.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
