@@ -26,11 +26,9 @@ public class AjaxAppointmentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Timestamp timestamp = Timestamp.valueOf(req.getParameter("date") + " " + req.getParameter("time") + ":00");
-        String masterInitials = req.getParameter("master");
-        String serviceName = req.getParameter("service");
-        String[] master = masterInitials.split(" ");
-        int masterId = ((MasterDaoImpl) masterDao).getByNameSurname(master[0], master[1]).getMasterId();
-        int serviceId = ((ServiceDaoImpl) serviceDao).getByName(serviceName).getServiceId();
+        int masterId = Integer.parseInt(req.getParameter("master"));
+        int serviceId = Integer.parseInt(req.getParameter("service"));
+        Master master = masterDao.get(masterId);
         Appointment appointment = new Appointment(
                 req.getParameter("phone"),
                 timestamp,
@@ -39,7 +37,7 @@ public class AjaxAppointmentServlet extends HttpServlet {
         );
         try {
             appointmentDao.save(appointment);
-            resp.getWriter().write("you have made an appointment to " + masterInitials + " for " + serviceName + " at " + timestamp);
+            resp.getWriter().write("you have made an appointment to " + master.getName() + " " + master.getSurname() + " for " + serviceDao.get(serviceId).getName() + " at " + timestamp);
         } catch (DaoException e) {
             resp.getWriter().write(e.getMessage());
         }

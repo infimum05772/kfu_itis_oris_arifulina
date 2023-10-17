@@ -21,7 +21,7 @@
                     }
                     $("#service").empty();
                     $.each(response, function (index, service) {
-                        let option = $("<option></option>").text(service)
+                        let option = $("<option></option>").text(service.name).val(service.serviceId)
                         $("#service").append(option)
                     })
                 })
@@ -76,7 +76,7 @@
             <select class="selector" id="master" name="master">
                 <option selected disabled value="">choose your master</option>
                 <#list masters as m>
-                    <option id="master-option" class="master-option">${m.name} ${m.surname}</option>
+                    <option id="master-option" class="master-option" value="${m.masterId}">${m.name} ${m.surname}</option>
                 </#list>
             </select>
         </#if>

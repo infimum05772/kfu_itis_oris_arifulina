@@ -14,7 +14,7 @@ public class ServiceDaoImpl implements Dao<Service> {
     public static final Connection connection = DBConnectionBeautySaloonUtil.getConnection();
 
     @Override
-    public Service get(int id) throws DaoException {
+    public Service get(int id) {
         try {
             String sqlService = "select * from services where service_id=?";
             PreparedStatement preparedStatementService = connection.prepareStatement(sqlService);
@@ -30,7 +30,7 @@ public class ServiceDaoImpl implements Dao<Service> {
             }
             return service;
         } catch (SQLException e) {
-            throw new DaoException(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -60,26 +60,6 @@ public class ServiceDaoImpl implements Dao<Service> {
     @Override
     public void save(Service service) {
         //реализовывать в рамках кр нет особого смысла
-    }
-
-    public Service getByName(String name) {
-        try {
-            String sql = "SELECT * FROM services where name=?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, name);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            Service service = null;
-            if (resultSet.next()) {
-                service = new Service(
-                        resultSet.getInt("service_id"),
-                        resultSet.getString("name"),
-                        resultSet.getInt("duration")
-                );
-            }
-            return service;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public List<Service> getAllByMaster(int masterId) {

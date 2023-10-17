@@ -5,7 +5,7 @@ import ru.kpfu.itis.arifulina.net.dao.exceptions.DaoException;
 import java.util.List;
 
 public interface Dao<T> {
-    T get(int id) throws DaoException;
+    T get(int id);
 
     List<T> getAll();
 

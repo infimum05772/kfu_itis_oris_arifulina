@@ -15,31 +15,9 @@ public class MasterDaoImpl implements Dao<Master> {
     @Override
     public Master get(int id) {
         try {
-            String sql = "SELECT * FROM masters where id=?";
+            String sql = "SELECT * FROM masters where master_id=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            Master master = null;
-            if (resultSet.next()) {
-                master = new Master(
-                        resultSet.getInt("master_id"),
-                        resultSet.getString("name"),
-                        resultSet.getString("surname"),
-                        resultSet.getString("phone")
-                );
-            }
-            return master;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public Master getByNameSurname(String name, String surname) {
-        try {
-            String sql = "SELECT * FROM masters where name=? and surname=?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, surname);
             ResultSet resultSet = preparedStatement.executeQuery();
             Master master = null;
             if (resultSet.next()) {

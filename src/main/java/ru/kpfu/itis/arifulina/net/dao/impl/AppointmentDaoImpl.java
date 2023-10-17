@@ -13,6 +13,7 @@ import java.util.List;
 public class AppointmentDaoImpl implements Dao<Appointment> {
     public static final Dao<Service> serviceDao = new ServiceDaoImpl();
     public static final Connection connection = DBConnectionBeautySaloonUtil.getConnection();
+
     @Override
     public Appointment get(int id) {
         return null;
@@ -23,6 +24,23 @@ public class AppointmentDaoImpl implements Dao<Appointment> {
         return null;
     }
 
+    private boolean checkTime(Appointment appointment, LocalDateTime startTime, LocalDateTime endTime) throws SQLException {
+        String sqlJoin = "select * from appointments inner join services on appointments.service_id=services.service_id where master_id=?";
+        PreparedStatement preparedStatementJoin = connection.prepareStatement(sqlJoin);
+        preparedStatementJoin.setInt(1, appointment.getMasterId());
+        ResultSet resultSet = preparedStatementJoin.executeQuery();
+        if (resultSet != null) {
+            while (resultSet.next()) {
+                LocalDateTime currStartTime = resultSet.getTimestamp("appointment_time").toLocalDateTime();
+                LocalDateTime currEndTime = currStartTime.plusMinutes(resultSet.getInt("duration"));
+                if (!(endTime.isBefore(currStartTime) || currEndTime.isBefore(startTime))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     @Override
     public void save(Appointment appointment) throws DaoException {
         try {
@@ -30,18 +48,8 @@ public class AppointmentDaoImpl implements Dao<Appointment> {
             LocalDateTime startTime = appointment.getAppointmentTime().toLocalDateTime();
             LocalDateTime endTime = startTime.plusMinutes(duration);
 
-            String sqlJoin = "select * from appointments inner join services on appointments.service_id=services.service_id where master_id=?";
-            PreparedStatement preparedStatementJoin = connection.prepareStatement(sqlJoin);
-            preparedStatementJoin.setInt(1, appointment.getMasterId());
-            ResultSet resultSet = preparedStatementJoin.executeQuery();
-            if (resultSet != null) {
-                while (resultSet.next()) {
-                    LocalDateTime currStartTime = resultSet.getTimestamp("appointment_time").toLocalDateTime();
-                    LocalDateTime currEndTime = currStartTime.plusMinutes(resultSet.getInt("duration"));
-                    if (!(endTime.isBefore(currStartTime) || currEndTime.isBefore(startTime))) {
-                        throw new DaoException("appointment for this time isn't possible");
-                    }
-                }
+            if (!checkTime(appointment, startTime, endTime)) {
+                throw new DaoException("appointment for this time isn't possible");
             }
 
             String sqlInsert = "insert into appointments(customer_phone, master_id, service_id, appointment_time) values (?,?,?,?)";
