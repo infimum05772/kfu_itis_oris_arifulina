@@ -1,6 +1,7 @@
 package ru.kpfu.itis.arifulina.net.service.impl;
 
 import ru.kpfu.itis.arifulina.net.dao.Dao;
+import ru.kpfu.itis.arifulina.net.dao.exceptions.DaoException;
 import ru.kpfu.itis.arifulina.net.dao.impl.UserDaoImpl;
 import ru.kpfu.itis.arifulina.net.dto.UserDto;
 import ru.kpfu.itis.arifulina.net.model.User;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(User user) {
+    public void save(User user) throws DaoException {
         user.setPassword(PasswordUtil.encrypt(user.getPassword()));
         dao.save(user);
     }

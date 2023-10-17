@@ -20,13 +20,15 @@ public class AuthenticationFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
-        String uri = httpServletRequest.getRequestURI();
-        HttpSession httpSession = httpServletRequest.getSession(false);
-        if (httpSession == null && !uri.contains("login")) {
-            ((HttpServletResponse) servletResponse).sendRedirect("/wlogin");
-        } else {
-            filterChain.doFilter(servletRequest, servletResponse);
-        }
+//        String uri = httpServletRequest.getRequestURI();
+//        HttpSession httpSession = httpServletRequest.getSession(false);
+//        if (httpSession == null && !uri.contains("login")) {
+//            ((HttpServletResponse) servletResponse).sendRedirect("/wlogin");
+//        } else {
+//            filterChain.doFilter(servletRequest, servletResponse);
+//        }
+
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override

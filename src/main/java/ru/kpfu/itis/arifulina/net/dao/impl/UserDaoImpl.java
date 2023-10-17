@@ -1,6 +1,7 @@
 package ru.kpfu.itis.arifulina.net.dao.impl;
 
 import ru.kpfu.itis.arifulina.net.dao.Dao;
+import ru.kpfu.itis.arifulina.net.dao.exceptions.DaoException;
 import ru.kpfu.itis.arifulina.net.model.User;
 import ru.kpfu.itis.arifulina.net.util.DatabaseConnectionUtil;
 
@@ -43,7 +44,7 @@ public class UserDaoImpl implements Dao<User> {
     }
 
     @Override
-    public void save(User user) {
+    public void save(User user) throws DaoException {
         String sql = "insert into users(name, lastname, email, login, password) values (?,?,?,?,?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -55,7 +56,7 @@ public class UserDaoImpl implements Dao<User> {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 }
