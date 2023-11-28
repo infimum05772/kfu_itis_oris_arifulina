@@ -1,6 +1,7 @@
 module ru.kpfu.itis.arifulina.fxml {
     requires javafx.controls;
     requires javafx.fxml;
+    requires com.google.gson;
 
     requires org.controlsfx.controls;
 

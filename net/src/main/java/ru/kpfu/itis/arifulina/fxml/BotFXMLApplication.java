@@ -6,20 +6,20 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class FXMLApplication extends Application {
+public class BotFXMLApplication extends Application {
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(FXMLApplication.class.getResource("/page.fxml"));
+        FXMLLoader loader = new FXMLLoader(BotFXMLApplication.class.getResource("/main_page.fxml"));
 
         AnchorPane pane = loader.load();
 
         Scene scene = new Scene(pane);
 
-        stage.setTitle("");
+        stage.setTitle("HelpBot");
         stage.setScene(scene);
         stage.show();
     }

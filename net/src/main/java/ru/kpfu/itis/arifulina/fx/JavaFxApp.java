@@ -59,7 +59,7 @@ public class JavaFxApp extends Application {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("alert");
-        alert.setContentText("блять");
+        alert.setContentText("");
 
         Button click = new Button("click me");
         click.setOnAction(actionEvent -> alert.show());
@@ -70,7 +70,7 @@ public class JavaFxApp extends Application {
         children.addAll(line, text, click);
 
         Scene main = new Scene(root, 600, 600);
-        stage.setTitle("pizdoblyadstvo");
+        stage.setTitle("");
         stage.setScene(main);
         stage.show();
 
@@ -78,7 +78,7 @@ public class JavaFxApp extends Application {
 
         main.setOnKeyPressed(key -> {
             if (kc.match(key)) {
-                System.out.println("извините за мат");
+                System.out.println("");
             }
             switch (key.getCode()){
                 case A -> alert.show();
