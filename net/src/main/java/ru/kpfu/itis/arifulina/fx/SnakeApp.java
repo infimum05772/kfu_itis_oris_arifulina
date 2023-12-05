@@ -123,14 +123,14 @@ public class SnakeApp extends Application {
     }
 
     private void showPoisonousApple() {
-        TimerTask increaseSpeed = new TimerTask() {
+        TimerTask showApple = new TimerTask() {
             @Override
             public void run() {
                 generateApple();
             }
         };
         Timer timer = new Timer();
-        timer.schedule(increaseSpeed, Apple.DURATION_OF_POISONOUS_SHOWING);
+        timer.schedule(showApple, Apple.DURATION_OF_POISONOUS_SHOWING);
     }
 
     private void move() {
