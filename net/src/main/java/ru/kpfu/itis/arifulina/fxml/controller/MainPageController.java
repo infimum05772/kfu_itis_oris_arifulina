@@ -66,6 +66,7 @@ public class MainPageController extends AbstractApp {
             commandManager.registerCommand("weather", new GetWeatherCommand());
             commandManager.registerCommand("currency", new GetCurrencyCommand());
             commandManager.registerCommand("chat", new StartChatCommand());
+            commandManager.registerCommand("snake", new StartSnakeCommand());
             commandManager.registerCommand("help", new HelpCommand());
             commandManager.registerCommand("start", new StartCommand());
             commandManager.registerCommand("end", new EndCommand());

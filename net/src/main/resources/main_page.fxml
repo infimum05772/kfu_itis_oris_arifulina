@@ -21,7 +21,6 @@
             </children>
         </HBox>
         <TextArea fx:id="messages" AnchorPane.topAnchor="50" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
-
         </TextArea>
     </children>
 
